@@ -1,0 +1,99 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fff8e1;
+  color: #333;
+  line-height: 1.6;
+}
+
+header {
+  background-color: #ffcc00;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+header h1 {
+  color: #b71c1c;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: #b71c1c;
+  font-weight: bold;
+}
+
+main {
+  padding: 2rem;
+  max-width: 900px;
+  margin: auto;
+}
+
+#productos, #carrito {
+  margin-bottom: 2rem;
+}
+
+.producto {
+  background-color: #fff;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+}
+
+.producto h3 {
+  margin-bottom: 0.5rem;
+  color: #d32f2f;
+}
+
+.producto p {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.producto button {
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.producto button:hover {
+  background-color: #b71c1c;
+}
+
+#carrito ul {
+  list-style: none;
+  padding-left: 1rem;
+}
+
+#carrito li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #ccc;
+}
+
+footer {
+  text-align: center;
+  background-color: #ffcc00;
+  padding: 1rem;
+  color: #b71c1c;
+  font-weight: bold;
+}
