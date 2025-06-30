@@ -1,45 +1,64 @@
 let carrito = [];
-let total = 0;
 
 function agregarAlCarrito(nombre, precio) {
-  carrito.push({ nombre, precio });
-  total += precio;
+  const existente = carrito.find(p => p.nombre === nombre);
+  if (existente) {
+    existente.cantidad++;
+  } else {
+    carrito.push({ nombre, precio, cantidad: 1 });
+  }
+  actualizarCarrito();
+}
+
+function eliminarDelCarrito(nombre) {
+  carrito = carrito.filter(p => p.nombre !== nombre);
   actualizarCarrito();
 }
 
 function actualizarCarrito() {
-  const lista = document.getElementById("lista-carrito");
+  const tabla = document.getElementById("tabla-carrito");
   const totalSpan = document.getElementById("total");
+  tabla.innerHTML = "";
+  let total = 0;
 
-  lista.innerHTML = "";
+  carrito.forEach(producto => {
+    const subtotal = producto.precio * producto.cantidad;
+    total += subtotal;
 
-  carrito.forEach((producto, index) => {
-    const item = document.createElement("li");
-    item.textContent = `${producto.nombre} - $${producto.precio}`;
-    
-    // Botón para eliminar un producto del carrito
-    const btnEliminar = document.createElement("button");
-    btnEliminar.textContent = "Eliminar";
-    btnEliminar.style.marginLeft = "10px";
-    btnEliminar.style.backgroundColor = "#c62828";
-    btnEliminar.style.color = "white";
-    btnEliminar.style.border = "none";
-    btnEliminar.style.borderRadius = "4px";
-    btnEliminar.style.cursor = "pointer";
-
-    btnEliminar.onclick = () => {
-      eliminarDelCarrito(index);
-    };
-
-    item.appendChild(btnEliminar);
-    lista.appendChild(item);
+    const fila = document.createElement("tr");
+    fila.innerHTML = `
+      <td>${producto.nombre}</td>
+      <td>${producto.cantidad}</td>
+      <td>$${producto.precio}</td>
+      <td>$${subtotal}</td>
+      <td><button onclick="eliminarDelCarrito('${producto.nombre}')">X</button></td>
+    `;
+    tabla.appendChild(fila);
   });
 
   totalSpan.textContent = total;
+
+  const resumen = carrito.map(p => `${p.nombre} x${p.cantidad}`).join(", ");
+  document.getElementById("pedidoInput").value = resumen;
+  document.getElementById("totalInput").value = total;
 }
 
-function eliminarDelCarrito(index) {
-  total -= carrito[index].precio;
-  carrito.splice(index, 1);
-  actualizarCarrito();
-}
+document.getElementById("pedidoForm").addEventListener("submit", function (e) {
+  const form = e.target;
+  const nombre = form.nombre.value;
+  const curso = form.curso.value;
+  const pedido = form.pedido.value;
+  const total = form.total.value;
+
+  const baseURL = "https://docs.google.com/forms/d/e/1FAIpQLSeEHto7mpaMoEKbnbYbYvUiLQB9MYNetrVJvnoerR6WP-5L-A/viewform";
+
+  const params = new URLSearchParams({
+    "entry.1458051335": nombre,
+    "entry.75037266": curso,
+    "entry.1475518901": pedido,
+    "entry.2072842704": total
+  });
+
+  const urlFinal = `${baseURL}?${params.toString()}`;
+  window.open(urlFinal, "_blank");
+});
