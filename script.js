@@ -62,3 +62,11 @@ document.getElementById("pedidoForm").addEventListener("submit", function (e) {
   const urlFinal = `${baseURL}?${params.toString()}`;
   window.open(urlFinal, "_blank");
 });
+
+window.addEventListener("load", function () {
+  const intro = document.getElementById("intro");
+  setTimeout(() => {
+    intro.classList.add("fade-out");
+  }, 2000); 
+});
+
